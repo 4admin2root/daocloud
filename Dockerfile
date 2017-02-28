@@ -8,7 +8,6 @@ RUN apt-get install -y python-setuptools git telnet curl
 # Install pip
 RUN easy_install pip
 # Bundle app source
-295
 ADD . /src
 WORKDIR /src
 # Add and install Python modules
