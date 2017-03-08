@@ -1,0 +1,2 @@
+https://kubernetes.io/docs/tutorials/stateful-application/zookeeper/
+https://kubernetes.io/docs/tutorials/stateful-application/run-replicated-stateful-application/

@@ -1,0 +1,22 @@
+piVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ceph-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  rbd:
+    monitors:
+      - es1-bm0604.synjones.com:6789
+      - es2-bm0606.synjones.com:6789
+      - es3-bm0608.synjones.com:6789
+    pool: rbd
+    image: ceph-image
+    user: admin
+    secretRef:
+      name: ceph-secret
+    fsType: ext4
+    readOnly: false
+  persistentVolumeReclaimPolicy: Recycle
