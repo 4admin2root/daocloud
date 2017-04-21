@@ -16,7 +16,7 @@
   tags: docker_install 
 
 - name: start docker
-  service: name=docker state=restarted
+  service: name=docker state=restarted enabled=yes
   tags: docker_install
 
 - name: config docker daemon.json --aliyun.com
@@ -43,10 +43,10 @@
 - name: aliyun_kube_install
   yum: name={{item}} state=present
   with_items:
-        - kubelet-1.6.1
-        - kubeadm-1.6.1
-        - kubectl-1.6.1
-        - kubernetes-cni-0.5.1
+        - kubelet-{{kube_version}}
+        - kubeadm-{{kube_version}}
+        - kubectl-{{kube_version}}
+        - kubernetes-cni-{{kube_cni_version}}
   tags: aliyun_kube_install
 
 - name: sysctl 
