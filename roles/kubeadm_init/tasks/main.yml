@@ -58,3 +58,25 @@
   shell: kubeadm join --token {{token}} {{master}}:{{port}}
   tags: kubeadm_join
 
+- name: copy ceph_common
+  template: src=aliyun_ceph.repo dest=/etc/yum.repos.d/aliyun_ceph.repo owner=root group=root mode=0640
+  tags: ceph-common_install
+
+
+- name: install yum-plugin-priorities
+  yum: name=yum-plugin-priorities state=present
+  tags: ceph-common_install
+
+- name: install ceph_common
+  yum: name={{item}} state=present
+  with_items:
+        - ceph-common
+  tags: ceph-common_install
+
+- name: install glusterfs-fuse release
+  yum: name=centos-release-gluster state=present
+  tags: glusterfs-fuse_install
+
+- name: install glusterfs-fuse
+  yum: name=glusterfs-fuse state=present
+  tags: glusterfs-fuse_install
