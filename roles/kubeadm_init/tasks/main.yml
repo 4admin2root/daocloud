@@ -1,0 +1,60 @@
+---
+#########################################################################
+# tested on centos 7
+# 2017-04-21
+# created by : lvzhijun
+# others :
+########################################################################
+
+# 
+- name: copy docker.repo
+  template: src=docker.repo dest=/etc/yum.repos.d/docker.repo owner=root group=root mode=0640
+  tags: docker_install 
+
+- name: install docker
+  yum: name=docker-engine-1.12.6 state=present
+  tags: docker_install 
+
+- name: start docker
+  service: name=docker state=restarted
+  tags: docker_install
+
+- name: config docker daemon.json --aliyun.com
+  template: src=daemon.json dest=/etc/docker/daemon.json owner=root group=root mode=0640
+  tags: docker_install 
+
+- name: restart docker
+  service: name=docker state=restarted
+  tags: docker_restart
+
+
+- name: copy docker_pull_kube.sh
+  copy: src=docker_pull_kube.sh  dest=/tmp/docker_pull_kube.sh owner=root group=root mode=0640
+  tags: docker_pull
+
+- name: pull docker images
+  shell: bash /tmp/docker_pull_kube.sh
+  tags: docker_pull
+
+- name: copy aliyun_kube.repo
+  template: src=aliyun_kube.repo dest=/etc/yum.repos.d/aliyun_kube.repo owner=root group=root mode=0640
+  tags: aliyun_kube_install
+
+- name: aliyun_kube_install
+  yum: name={{item}} state=present
+  with_items:
+        - kubelet-1.6.1
+        - kubeadm-1.6.1
+        - kubectl-1.6.1
+        - kubernetes-cni-0.5.1
+  tags: aliyun_kube_install
+
+- name: sysctl 
+  shell: echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.conf; sysctl -p
+  tags: kubeadm_join
+
+
+- name: kubeadm join
+  shell: kubeadm join --token {{token}} {{master}}:{{port}}
+  tags: kubeadm_join
+
