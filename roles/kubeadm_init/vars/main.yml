@@ -1,5 +1,0 @@
-token: 84401b.d30e802d033a9348
-master: 10.9.5.91
-port: 6443
-kube_version: 1.6.1
-kube_cni_version: 0.5.1
