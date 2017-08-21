@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ceph-secret
+data:
+  key: QVFBRE1yMVlYdklYSGhBQW9YU0xubWdYaGpIZVhTMDFnRUlRZGc9PQo=
+type: kubernetes.io/rbd

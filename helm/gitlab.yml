@@ -1,0 +1,14 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-gitlab-ingress
+spec:
+  rules:
+  - host: git-k.xzxpay.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: my-gitlab-gitlab-ce
+          servicePort: 80
