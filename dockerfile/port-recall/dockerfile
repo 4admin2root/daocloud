@@ -1,0 +1,9 @@
+FROM centos:7
+MAINTAINER jasonlui <piml.lui@gmail.com>
+RUN  yum install epel-release -y
+RUN  yum install supervisor -y
+RUN  yum install screen -y
+ADD port-recall.py /root/
+ADD port-recall.ini /etc/supervisord.d/port-recall.ini
+EXPOSE 9001
+ENTRYPOINT ["supervisord","-n"]
