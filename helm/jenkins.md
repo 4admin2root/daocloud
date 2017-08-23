@@ -59,3 +59,13 @@ NOTES:
 
 For more information on running Jenkins on Kubernetes, visit:
 https://cloud.google.com/solutions/jenkins-on-container-engine
+
+# how to 
+1. job Waiting for next available executor
+'manage jenkins' - 'manage nodes' - 'master' 
+executors: 1  
+
+2. container logs with error:
+Aug 22, 2017 8:01:59 AM org.csanchez.jenkins.plugins.kubernetes.KubernetesCloud provision
+WARNING: Failed to count the # of live instances on Kubernetes
+io.fabric8.kubernetes.client.KubernetesClientException: Failure executing: GET at: https://kubernetes.default/api/v1/namespaces/default/pods?labelSelector=jenkins%3Dslave. Message: Forbidden!Configured service account doesn't have access. Service account may have been revoked.
