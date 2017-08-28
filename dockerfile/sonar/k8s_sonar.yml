@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sonar
+  namespace: default
+spec:
+  ports:
+  - port: 9000
+    protocol: TCP
+    targetPort: 9000
+  selector:
+    run: sonar
+  type: NodePort
+---
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: sonar-ingress
+spec:
+  rules:
+  - host: cq-k.xzxpay.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: sonar
+          servicePort: 9000
+
