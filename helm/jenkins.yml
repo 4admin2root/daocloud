@@ -10,5 +10,5 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: my-release-jenkins
+          serviceName: my-jenkins-jenkins
           servicePort: 8080
